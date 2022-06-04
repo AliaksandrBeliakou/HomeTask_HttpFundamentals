@@ -18,13 +18,35 @@ namespace HttpConnectionListenerConsolApp
 
             var urlParts = context.Request.RawUrl!.Split('?');
             var path = urlParts[0].Trim('/');
-            if (string.Equals(path, "myname", StringComparison.CurrentCultureIgnoreCase))
+            if (string.Equals(path, "MyName", StringComparison.CurrentCultureIgnoreCase))
             {
                 builder.JsonResponse(context, "Alex");
             }
-
-            string responseString = $"<HTML><BODY><h1>Hello human!</h1><p>This is default page.</p></BODY></HTML>";
-            builder.HtmlResponse(context, responseString);
+            else if (string.Equals(path, "Information", StringComparison.CurrentCultureIgnoreCase))
+            {
+                builder.NoContentResponse(context, HttpStatusCode.Processing);
+            }
+            else if (string.Equals(path, "Success", StringComparison.CurrentCultureIgnoreCase))
+            {
+                builder.NoContentResponse(context, HttpStatusCode.NoContent);
+            }
+            else if (string.Equals(path, "Redirection", StringComparison.CurrentCultureIgnoreCase))
+            {
+                builder.NoContentResponse(context, HttpStatusCode.Redirect);
+            }
+            else if (string.Equals(path, "ClientError", StringComparison.CurrentCultureIgnoreCase))
+            {
+                builder.NoContentResponse(context, HttpStatusCode.NotFound);
+            }
+            else if (string.Equals(path, "ServerError", StringComparison.CurrentCultureIgnoreCase))
+            {
+                builder.NoContentResponse(context, HttpStatusCode.InternalServerError);
+            }
+            else
+            {
+                string responseString = $"<HTML><BODY><h1>Hello human!</h1><p>This is default page.</p></BODY></HTML>";
+                builder.HtmlResponse(context, responseString);
+            }              
         }
     }
 }
