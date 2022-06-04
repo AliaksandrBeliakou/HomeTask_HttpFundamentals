@@ -42,6 +42,11 @@ namespace HttpConnectionListenerConsolApp
             {
                 builder.NoContentResponse(context, HttpStatusCode.InternalServerError);
             }
+            else if (string.Equals(path, "MyNameByHeader", StringComparison.CurrentCultureIgnoreCase))
+            {
+                context.Response.Headers.Add("X-MyName", "Zaah King");
+                builder.NoContentResponse(context);
+            }
             else
             {
                 string responseString = $"<HTML><BODY><h1>Hello human!</h1><p>This is default page.</p></BODY></HTML>";
